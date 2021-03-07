@@ -4,13 +4,15 @@
         <!--img src="../assets/icon-above-font.svg" alt="Groupomania logo"-->
         <Header />
         <form @submit.prevent = login()>
+            <p class='center text-lg-h5 mb-7'>Identifiez-vous</p>
             <div class="mb-2 center">Champs requis (*)</div>
             <input id="email" ref="email" type="email" placeholder="E-mail (*)" title="Renseignez votre email" required>
             <input id="password" ref="password" type="password" placeholder="Mot de passe (*)" title="Renseignez votre mot de passe" required>
             <div class="message-erreur">{{ message }}</div>
             <div class="container-button mx-auto mt-6 mb-15">
               <button id="login" type="submit" class="mx-5">Connexion</button>
-              <router-link :to="{name:'Signup'}" id="signup" class="mx-5" tag="button">Inscription</router-link>
+              <v-divider light vertical></v-divider>
+              <router-link :to="{name:'Signup'}" id="signup" class="mx-5" tag="button">S'inscrire</router-link>
             </div>
         </form>
     </div>
@@ -121,10 +123,11 @@ export default {
     }
 
     #signup{
-        padding: 6px 12px;
-        font-size: 1rem;
-        color: #ffffff;
-        background-color: #fd2d01;
+        padding: 6px 12px 6px 6px;
+        font-size: 1.3rem;
+        color: black;
+        background-color: transparent;
+        /* #fd2d01*/
         border: none;
         border-radius: 10px;
         transition-duration: 0.2s;

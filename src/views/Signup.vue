@@ -2,8 +2,9 @@
     <div class="background">
     <div class="container mx-auto">
         <!--img src="../assets/icon-above-font-removebg-preview.png" alt="Groupomania logo"-->
-        <Header />
+        <HeaderSignLogin />
         <form @submit.prevent = signup()>
+            <p class='center text-lg-h6 '>Inscrivez-vous dès maintenant !</p>
             <div class="mb-2 center">Champs requis (*)</div>
             <input id="nom" ref="nom" type="text" placeholder="Nom"  title="Renseignez votre nom">
             <input id="prenom" ref="prenom" type="text" placeholder="Prénom" title="Renseignez votre prénom">
@@ -11,9 +12,11 @@
             <input id="password" ref="password" type="password" placeholder="Mot de passe (*)" title="Renseignez votre mot de passe" required>
             <input id="bio" ref="bio" type="text" placeholder="Bio" title="Renseignez une bio">
             <div class="message-erreur">{{ message }}</div>
-            <div class="mx-auto mt-6 mb-15">
-              <button id="signup" type="submit" class="mx-5">Inscription</button>
-              <router-link to="/" id="login" tag="button" class="mx-5">Connexion</router-link>
+            <div class="mx-auto mt-6 mb-15 abc">
+                <button id="signup" type="submit" class="mx-5">Inscription</button>
+                <v-divider light></v-divider>
+                <p class="text-xl-caption center mb-n6">Déjà inscrit?</p>
+                <router-link to="/" id="login" tag="button" class="mx-5">Connectez-vous</router-link>
             </div>
         </form>
     </div>
@@ -21,12 +24,12 @@
 </template>
 <script>
 import { notConnectedClient } from '../services/auth.js';
-import Header from '../components/Header.vue';
+import HeaderSignLogin from '../components/HeaderSignLogin';
 
 export default {
     name: "Signup",
     components: {
-        Header
+        HeaderSignLogin
     } ,
     data() {
         return {
@@ -107,14 +110,20 @@ export default {
 
     form input{
         margin: auto;
-        width: 80%;
-        font-size: 1.05rem;
-        padding: 10px;
+        width: 60%;
+        font-size: 1rem;
+        padding: 18px;
         margin-bottom: 15px;
         text-align: center;
         background-color: white;
         border: 1px rgba(0, 0, 0, 0.548) solid;
-        border-radius: 15px;
+        border-radius: 8px;
+    }
+
+    .abc {
+        display: flex;
+        flex-direction: column;
+        row-gap: 2em;
     }
 
     #signup{
@@ -133,7 +142,7 @@ export default {
 
     #login{
         padding: 6px 12px;
-        font-size: 1rem;
+        font-size: 1.5rem;
         color: #ffffff;
         background-color: #fd2d01;
         border: none;
