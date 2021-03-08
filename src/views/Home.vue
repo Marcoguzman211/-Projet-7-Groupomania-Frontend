@@ -3,6 +3,7 @@
     <Login v-if='!approuvedConnexion'/>
     <Header v-if='approuvedConnexion'/> 
     <UserNav v-if='approuvedConnexion' />
+    <Publications v-if='approuvedConnexion' />
   </div>
 </template>
 
@@ -10,13 +11,15 @@
 import Login from '../components/Login.vue';
 import Header from '../components/Header.vue';
 import UserNav from '../components/UserNav.vue';
+import Publications from '../components/Publications.vue';
 
 export default {
   name: 'Home',
   components: {
     Login,
     Header,
-    UserNav
+    UserNav,
+    Publications
   },
   data() {
     return{

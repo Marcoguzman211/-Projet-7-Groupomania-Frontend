@@ -1,6 +1,6 @@
 <template>
     <v-card class="d-flex flex-column flex-md-row align-center" :color="'#ffd7d7'" min-height="50" tile>
-      <div class="pa-3 mr-auto">Bienvenue chez Groupomania !</div>
+      <div class="pa-3 mr-md-auto align-sm-center">Bienvenue chez Groupomania !</div>
       <router-link to="/" tag="button" class="nav-button">Toutes les publications</router-link>
        <v-divider class="my-4 d-none d-sm-flex" vertical></v-divider>
        <router-link to="/newpublication" tag="button" class="nav-button">Nouvelle publication</router-link>
