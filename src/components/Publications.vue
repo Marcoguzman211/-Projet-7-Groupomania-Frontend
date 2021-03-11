@@ -53,14 +53,4 @@ export default {
         font-size: .6rem;
         color: rgba(0, 0, 0, 0.781);
     }
-
-    .titre{
-        font-size: 1.5rem;
-        color: black;
-    }
-
-    .description{
-        font-size: 1rem;
-        color: black;
-    }
 </style>
