@@ -17,7 +17,7 @@
         <v-card-subtitle>{{userProfil.bio}}</v-card-subtitle>
     </v-card>
 
-  <v-card if='approuvedConnexion' class="mx-auto my-10 bordeado" max-width="344px">
+  <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px">
       <v-form @submit.prevent=saveUser() class='mx-auto'>
           <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre profil</div>
           <input ref="prenom" type="text" placeholder="Prénom" :value="userProfil.prenom">
@@ -30,7 +30,7 @@
           <div class="message-erreur mt-10">{{errorMsg}}</div>
           <div class="mx-auto mb-15 container-button-profil">
               <button id="sauvegarder" class="mx-5 my-10" type="submit">Sauvegarder mon profil </button>
-              <button id="supprimer" class="mx-5" type="button">Effacer mon profil </button>
+              <button id="supprimer" class="mx-5" type="button" @click="deleteUser()">Effacer mon profil </button>
           </div>
 
  </v-form>
@@ -123,11 +123,26 @@ export default {
             .catch((error) => {
                 this.errorMsg = error.response.data.error
             })
+        },
+        deleteUser(){
+            if(window.confirm("ATTENTION : La suppression de votre compte est définitive ! Voulez-vous vraiment supprimer votre compte ?")){
+                const userId = this.sessionUserId;
+                connectedClient.delete(`/users/${userId}`)
+                .then((res) => {
+                    if(res.status === 200) {
+                        this.succesMessage = res.data.message;
+                        localStorage.removeItem('groupomaniaUser');
+                        setTimeout(function() {location.href = '/';}, 2000)
+                    }
+                })
+                .catch((error) => {
+                    this.errorMessage = error.response.data.error;
+                    setTimeout(function() {location.reload()}, 2000)
+                })
+            }
         }
     }
 }
-
-
 </script>
 <style>
     form input{
