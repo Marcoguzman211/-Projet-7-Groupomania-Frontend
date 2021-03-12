@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Profil from '../views/Profil.vue';
+import OnePublication from '../views/OnePublication.vue';
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes = [{
         path: '/user/profil',
         name: 'Profil',
         component: Profil
+    },
+    {
+        path: '/publication/:id',
+        name: 'OnePublication',
+        component: OnePublication
     }
 ]
 
