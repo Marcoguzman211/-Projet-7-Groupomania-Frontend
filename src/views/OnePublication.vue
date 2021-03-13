@@ -9,7 +9,7 @@
             <v-card-title>{{publication.titre}}</v-card-title>
             <v-card-subtitle>{{publication.description}}</v-card-subtitle>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{formatDate(publication.creation_date)}}</div>
-            <v-btn v-if="sessionUserId === publication.user_id" class="ma-2" color="red" dark>Effacer
+            <v-btn v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" class="ma-2" color="red" dark>Effacer
                 <v-icon dark right>mdi-cancel</v-icon>
             </v-btn>
         </v-card>
@@ -47,7 +47,7 @@ export default {
             const token = JSON.parse(localStorage.groupomaniaUser).token
             let decodedToken = jwt.verify(token, process.env.VUE_APP_JWT_AUTH_SECRET_TOKEN);       
             this.sessionUserId = decodedToken.userId                                               
-            this.sessionUserAcces = decodedToken.access_level                                      
+            this.sessionUserLevel = decodedToken.access_level                                      
             this.getOnePublication();
         }
     },

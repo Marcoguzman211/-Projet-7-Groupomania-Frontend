@@ -17,24 +17,23 @@
         <v-card-subtitle>{{userProfil.bio}}</v-card-subtitle>
     </v-card>
 
-  <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px">
-      <v-form @submit.prevent=saveUser() class='mx-auto'>
-          <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre profil</div>
-          <input ref="prenom" type="text" placeholder="Prénom" :value="userProfil.prenom">
-          <input ref="nom" type="text" placeholder="Nom" :value="userProfil.nom">
-          <input ref="bio" type='text' placeholder="Bio" :value="userProfil.bio">
-          <div class="mb-5 mt-8 mx-auto text-h6">Modifier votre mot de passe :</div>
-          <input ref="password" type="password" placeholder="Mot de passe actuel">
-          <input ref="newpassword" type="password" placeholder="Nouveau mot de passe">
-          <div class="message-success">{{successMsg}}</div>
-          <div class="message-erreur mt-10">{{errorMsg}}</div>
-          <div class="mx-auto mb-15 container-button-profil">
-              <button id="sauvegarder" class="mx-5 my-10" type="submit">Sauvegarder mon profil </button>
-              <button id="supprimer" class="mx-5" type="button" @click="deleteUser()">Effacer mon profil </button>
-          </div>
-
- </v-form>
-  </v-card>
+    <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px">
+        <v-form @submit.prevent=saveUser() class='mx-auto'>
+            <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre profil</div>
+            <input ref="prenom" type="text" placeholder="Prénom" :value="userProfil.prenom">
+            <input ref="nom" type="text" placeholder="Nom" :value="userProfil.nom">
+            <input ref="bio" type='text' placeholder="Bio" :value="userProfil.bio">
+            <div class="mb-5 mt-8 mx-auto text-h6">Modifier votre mot de passe :</div>
+            <input ref="password" type="password" placeholder="Mot de passe actuel">
+            <input ref="newpassword" type="password" placeholder="Nouveau mot de passe">
+            <div class="message-success">{{successMsg}}</div>
+            <div class="message-erreur mt-10">{{errorMsg}}</div>
+            <div class="mx-auto mb-15 container-button-profil">
+                <button id="sauvegarder" class="mx-5 my-10" type="submit">Sauvegarder mon profil </button>
+                <button id="supprimer" class="mx-5" type="button" @click="deleteUser()">Effacer mon profil </button>
+            </div>
+        </v-form>
+    </v-card>
 </div>
     
 </template>

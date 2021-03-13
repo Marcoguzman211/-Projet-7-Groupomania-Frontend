@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Profil from '../views/Profil.vue';
 import OnePublication from '../views/OnePublication.vue';
+import NewPublication from '../views/NewPublication.vue';
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [{
         path: '/publication/:id',
         name: 'OnePublication',
         component: OnePublication
+    },
+    {
+        path: '/newpublication',
+        name: "NewPublication",
+        component: NewPublication
     }
 ]
 
