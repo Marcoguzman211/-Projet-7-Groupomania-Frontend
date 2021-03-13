@@ -13,6 +13,7 @@
                 <v-icon dark right>mdi-cancel</v-icon>
             </v-btn>
         </v-card>
+        <div class="messagestyle">{{message}}</div>
     </div>
 </template>
 <script>
@@ -70,18 +71,20 @@ export default {
                     this.publication = 0
                 } else {
                     this.publication = res.data.publication[0]
-                    console.log(this.publication)
                 }
             })
         },
         deletePublication(id){                            
             const publicationId = id;
-            connectedClient.delete(`/publications/${publicationId}`)
-            .then((res) => {
-                if(res.status === 200) {
-                location.href = '/';
-                }
-            })
+            if(window.confirm("ATTENTION : La suppression de la publication est définitive ! Voulez-vous continuer ?")){
+                connectedClient.delete(`/publications/${publicationId}`)
+                .then((res) => {
+                    if(res.status === 200) {
+                    this.message = res.data.message
+                    setTimeout(()=> { location.href = '/'}, 2000)          
+                    }
+                })
+            }
         },
         formatDate(date){
             const event = new Date(date);
@@ -103,5 +106,13 @@ export default {
     .nom-date{
         font-size: .6rem;
         color: rgba(0, 0, 0, 0.781);
+    }
+
+    .messagestyle {
+      text-align: center;
+      margin: auto;
+      color: rgb(3, 102, 0);
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 </style>

@@ -1,12 +1,12 @@
 <template>
     <div class="background d-flex flex-column">
-        <v-card class="mx-auto mt-8" v-for = "publication in publications" :key="publication.id" max-width="445">
+        <v-card class="mx-auto mt-8" v-for = "publication in publications" :key="publication.id" width="445">
             <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" height="200px"></v-img>
             <v-divider horizontal></v-divider>
-            <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}">
-                <v-card-title>{{publication.titre}}</v-card-title>
+            <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}" class="text-decoration-none black--text">
+                <v-card-title class="text-h6 font-weight-black">{{publication.titre}}</v-card-title>
             </router-link>
-            <v-card-subtitle>{{publication.description}}</v-card-subtitle>
+            <v-card-subtitle class='body-1'>{{publication.description}}</v-card-subtitle>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
         </v-card>
     </div>

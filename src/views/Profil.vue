@@ -164,9 +164,9 @@ export default {
     }
     #sauvegarder{
         padding: 6px 12px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: white;
-        background-color: #00b126cb;
+        background-color: #122441;
         border: none;
         border-radius: 10px;
         transition-duration: 0.2s;
@@ -177,10 +177,10 @@ export default {
     }
 
     #supprimer{
-        padding: 6px 12px;
-        font-size: 1rem;
-        color: white;
-        background-color: #ff6c40;
+        padding: 6px 18px;
+        font-size: 1.2rem;
+        color: grey;
+        /*background-color: #ff6c40;*/
         border: none;
         border-radius: 10px;
         transition-duration: 0.2s;

@@ -1,14 +1,23 @@
 <template>
-    <v-card class="d-flex flex-column flex-md-row align-center" :color="'#ffd7d7'" min-height="50" tile>
-      <div class="pa-3 mr-md-auto align-sm-center">Bienvenue chez Groupomania !</div>
-      <router-link to="/" tag="button" class="nav-button">Toutes les publications</router-link>
-       <v-divider class="my-4 d-none d-sm-flex" vertical></v-divider>
-       <router-link to="/newpublication" tag="button" class="nav-button">Nouvelle publication</router-link>
-       <v-divider class="my-4 d-none d-sm-flex" vertical></v-divider>
-      <router-link to="/user/profil" tag="button" class="nav-button">Profil</router-link>
-       <v-divider class="my-4 d-none d-sm-flex" vertical></v-divider>
-      <button @click='deconnexion()' class="nav-button">Déconnexion</button>
-    </v-card>
+    <div>
+        <v-expansion-panels popout>
+            <v-expansion-panel>
+                <v-expansion-panel-header class="groupo-bg texte-blanc">Bienvenue chez Groupomania !</v-expansion-panel-header>
+                <v-expansion-panel-content class="groupo-bg texte-blanc"> 
+                    <router-link to="/" tag="button">Toutes les publications</router-link>
+                </v-expansion-panel-content>
+                <v-expansion-panel-content class="groupo-bg texte-blanc">
+                    <router-link to="/newpublication" tag="button">Nouvelle publication</router-link>
+                </v-expansion-panel-content>
+                <v-expansion-panel-content class="groupo-bg texte-blanc">
+                    <router-link to="/user/profil" tag="button">Profil</router-link>
+                </v-expansion-panel-content>
+                <v-expansion-panel-content class="groupo-bg texte-blanc">
+                    <button @click='deconnexion()'>Déconnexion</button>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
+    </div>
 </template>
 <script>
 export default {
@@ -23,29 +32,18 @@ export default {
 </script>
 
 <style scoped>
-    .nav-button{
-        margin: 0 5px ;
-        padding: 10px 12px;
-        font-size: 1rem;
-        color:black;
-        border: none;
-        border-radius: 10px;
-        transition-duration: 0.2s; 
+    .border {
+        border: 2px solid green;
+    }
+    .groupo-bg{
+        background-color: #122441;
     }
 
-    .nav-button:hover{
-        transform: scale(1.1);
+    .texte-blanc {
+        color: white;
     }
 
-    .nav-button.router-link-exact-active{
-        margin: 0 5px ;
-        padding: 10px 12px;
-        font-size: 1.1rem;
-        color:black;
+    .router-link-exact-active{
         font-weight: bold;
-        border: none;
-        border-radius: 10px;
-        transition-duration: 0.2s;
-        text-decoration: underline;
     }
 </style>

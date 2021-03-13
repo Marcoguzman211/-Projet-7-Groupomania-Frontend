@@ -11,7 +11,7 @@
             <div class="mb-5 mt-8 mx-auto text-h6">Ajoutez une image :</div>
             <input ref="uploadImage" type="file" class="mt-5" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
             <div class="message-erreur">{{message}}</div>
-            <v-btn type='submit' elevation="8" class='mx-auto mb-5'>Publier</v-btn>
+            <v-btn type='submit' elevation="0" class='mx-auto mb-5'>Publier</v-btn>
         </v-form>
     </v-card>
     </div>
