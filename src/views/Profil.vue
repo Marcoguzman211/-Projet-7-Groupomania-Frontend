@@ -1,5 +1,5 @@
 <template>
-<div class='profil'>
+<div class='profil background'>
     <Header if='approuvedConnexion'/>
     <UserNav if='approuvedConnexion'/>
 
@@ -144,6 +144,13 @@ export default {
 }
 </script>
 <style>
+    .background{
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        min-height: 100vh;
+        }
+        
     form input{
         margin: auto;
         width: 80%;

@@ -1,19 +1,27 @@
 <template>
-    <div class="NewPublication">
-    <Header v-if="approuvedConnexion"/>
-    <UserNav v-if='approuvedConnexion'/>
+    <div class="NewPublication background">
+        <Header v-if="approuvedConnexion"/>
+        <UserNav v-if='approuvedConnexion'/>
 
-    <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px" @submit.prevent="newPublication()">
-        <v-form class='mx-auto'>
-            <div class="mb-5 mt-8 mx-auto text-h6">Partagez</div>
-            <input ref="titre" type="text" placeholder="Titre">
-            <input ref="description" type="text" placeholder="Description">
-            <div class="mb-5 mt-8 mx-auto text-h6">Ajoutez une image :</div>
-            <input ref="uploadImage" type="file" class="mt-5" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
-            <div class="message-erreur">{{message}}</div>
-            <v-btn type='submit' elevation="0" class='mx-auto mb-5'>Publier</v-btn>
-        </v-form>
-    </v-card>
+        <v-card if='approuvedConnexion' class="mx-auto my-10" elevation="6" max-width="344px" @submit.prevent="newPublication()">
+            <form class='mx-auto'>
+                <div class="mb-5 mt-8 mx-auto text-h6">Que voulez-vous dire ?</div>
+                <input class='publinput' ref="titre" type="text" placeholder="Titre">
+                <!--<input ref="description" type="textarea" placeholder="Description">-->
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols='12' md="12" class="justify-center">
+                           <!-- <v-textarea ref='description' outlined label='Description' auto-grow clearable></v-textarea>-->
+                            <textarea ref='description' name="description" id="descriptionnew" cols="36" rows="5" class="descriptionnew" placeholder="Ajoutez une description"></textarea>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <div class="mb-1 mt-2 mx-auto text-h6">Ajoutez une image :</div>
+                <input ref="uploadImage" type="file" class="mt-2 mb-16 publinput" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
+                <div class="message-erreur">{{message}}</div>
+                <v-btn type='submit' elevation="0" class='mx-auto mb-5 publier-btn' dark style="background-color: #122441;">Publier</v-btn>
+            </form>
+        </v-card>
     </div>
 </template>
 <script>
@@ -71,34 +79,71 @@ export default {
             const lastDot = fileName.lastIndexOf(".") + 1;
             const extensionFile = fileName.substring(lastDot, fileName.length).toLowerCase();
 
-            if(extensionFile =='jpg' || extensionFile == 'jpeg' || extensionFile=='png' || uploadImage==undefined){
-                let formData = new FormData()
-                formData.append('userId', userId)
-                formData.append('titre', titre)
-                formData.append('description', description),
-                formData.append('image', uploadImage)
-
-                connectedClient.post('/publications', formData)
-                .then((res) => {
-                    if(res.status === 201){
-                        this.$router.push({ name:'Home'})
-                    }
-                })
-                .catch(error => {
-                    this.message = error.response.data.error
-                })
+            if(!titre){
+                this.message = "Veuillez insérer un titre"
             } else {
-                this.message = "Seules les images de type JPG/JPEG/PNG sont autorisées !"
+                if(extensionFile =='jpg' || extensionFile == 'jpeg' || extensionFile=='png' || uploadImage==undefined){
+                    let formData = new FormData()
+                    formData.append('userId', userId)
+                    formData.append('titre', titre)
+                    formData.append('description', description),
+                    formData.append('image', uploadImage)
+
+                    connectedClient.post('/publications', formData)
+                    .then((res) => {
+                        if(res.status === 201){
+                            this.$router.push({ name:'Home'})
+                        }
+                    })
+                    .catch(error => {
+                        this.message = error.response.data.error
+                    })
+                } else {
+                    this.message = "Seules les images de type JPG/JPEG/PNG sont autorisées !"
+                }
             }
         }
     }
 }
 </script>
 <style scoped>
-.message-erreur{
+    .publinput {
+        margin: 0 1.3em;
+        border-radius: 0;
+        width: 89.5%;
+    }
+    .texte-haut {
+        min-height: 100px;
+    }
+    .background{
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        min-height: 100vh;
+        }
+    .message-erreur{
         text-align: center;
         margin: auto;
         color: red;
         font-size: 1rem;
+        margin-bottom: 3em;
+        }
+    .descriptionnew{
+        margin: 0 .6em;
+        border: 2px solid grey;
+    }
+
+    .publier-btn{
+        padding: 6px 12px;
+        font-size: 1.5rem;
+        color: #ffffff;
+        background-color: #122441;
+        border: none;
+        border-radius: 10px;
+        transition-duration: 0.2s;
+        }
+
+    .publier-btn:hover{
+        transform: scale(1.1);
     }
 </style>

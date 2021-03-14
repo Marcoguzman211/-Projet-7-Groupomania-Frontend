@@ -106,6 +106,7 @@ export default {
           justify-content: space-around;
           align-items: baseline;
           margin: 0 auto;
+          max-width: 445px;
     }
 
     form input{
