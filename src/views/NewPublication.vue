@@ -1,5 +1,6 @@
 <template>
     <div class="NewPublication background">
+       <!--Header pour afficher le logo --> 
         <Header v-if="approuvedConnexion"/>
         <UserNav v-if='approuvedConnexion'/>
 
@@ -7,19 +8,17 @@
             <form class='mx-auto'>
                 <div class="mb-5 mt-8 mx-auto text-h6">Que voulez-vous dire ?</div>
                 <input class='publinput' ref="titre" type="text" placeholder="Titre">
-                <!--<input ref="description" type="textarea" placeholder="Description">-->
                 <v-container fluid>
                     <v-row>
                         <v-col cols='12' md="12" class="justify-center">
-                           <!-- <v-textarea ref='description' outlined label='Description' auto-grow clearable></v-textarea>-->
                             <textarea ref='description' name="description" id="descriptionnew" cols="36" rows="5" class="descriptionnew" placeholder="Ajoutez une description"></textarea>
                         </v-col>
                     </v-row>
                 </v-container>
                 <div class="mb-1 mt-2 mx-auto text-h6">Ajoutez une image :</div>
-                <input ref="uploadImage" type="file" class="mt-2 mb-16 publinput" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
+                <input ref="uploadImage" type="file" class="mt-2 mb-6 publinput" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
                 <div class="message-erreur">{{message}}</div>
-                <v-btn type='submit' elevation="0" class='mx-auto mb-5 publier-btn' dark style="background-color: #122441;">Publier</v-btn>
+                <button id="publier" class="mx-5 mt-0 mb-10" type="submit">Publier </button>
             </form>
         </v-card>
     </div>
@@ -144,6 +143,21 @@ export default {
         }
 
     .publier-btn:hover{
+        transform: scale(1.1);
+    }
+
+    #publier {
+        padding: 6px 12px;
+        font-size: 1.2rem;
+        color: white;
+        background-color: #122441;
+        border: none;
+        border-radius: 10px;
+        transition-duration: 0.2s;
+        align-self: center;
+    }
+
+    #publier:hover{
         transform: scale(1.1);
     }
 </style>
