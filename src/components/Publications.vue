@@ -1,7 +1,10 @@
 <template>
     <div class="background d-flex flex-column">
+        <div>
+            <h1 class="text-center mt-10 color-principal">Activité récente</h1>
+        </div>
         <v-card class="mx-auto mt-8" v-for = "publication in publications" :key="publication.id" width="445">
-            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" height="200px"></v-img>
+            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" max-height="600px"></v-img>
             <v-divider horizontal></v-divider>
             <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}" class="text-decoration-none black--text">
                 <v-card-title class="text-h6 font-weight-black">{{publication.titre}}</v-card-title>
@@ -41,6 +44,14 @@ export default {
 }
 </script>
 <style scoped>
+    @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;700&display=swap');
+    div {
+        font-family: 'Signika', sans-serif;
+    }
+
+    .color-principal {
+        color: #122441;
+    }
    .background{
       background-size: cover;
       background-attachment: fixed;
