@@ -1,24 +1,14 @@
-# frontend
+# Groupomania - Frontend
 
-## Project setup
-```
-npm install
-```
+## Installation de l'application
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+ 1. Pour lancer l'application il faut avoir Nodejs installé.
+ 2. Copier le fichier `frontend.env` dans les livrables et veuillez le placer dans le dossier `frontend` 
+ 4. Renommez le fichier `frontend.env` en `.env`
+ 5. Sur la ligne des commandes et à partir du dossier `frontend` tapez:
+						
+		> npm install
+ 6. Pour lancer le serveur, à partir du dossier `frontend` sur la ligne de commandes tapez:
+ 
+		> npn run serve
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
