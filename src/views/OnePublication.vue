@@ -4,7 +4,7 @@
         <UserNav v-if='approuvedConnexion' />
 
         <v-card class="mx-auto mt-8" :key="publication.id" max-width="445">
-            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" height="200px"></v-img>
+            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" height="600px"></v-img>
             <v-divider horizontal></v-divider>
             <v-card-title>{{publication.titre}}</v-card-title>
             <v-card-subtitle>{{publication.description}}</v-card-subtitle>
