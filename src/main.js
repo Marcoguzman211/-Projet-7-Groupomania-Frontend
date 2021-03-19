@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 
-import dotenvt from 'dotenv'
+import dotenvt from 'dotenv' //configuration de dotenv pour gérer le fichier .env
 dotenvt.config()
 
 Vue.config.productionTip = false

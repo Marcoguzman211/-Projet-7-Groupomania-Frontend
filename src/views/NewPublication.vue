@@ -52,7 +52,7 @@ export default {
         this.connectedUser()
     },
     mounted(){
-        if(this.approuvedConnexion){
+        if(this.approuvedConnexion){ //Fonction pour décoder le token dans le localStorage et récupérer le id et access_level
             const token = JSON.parse(localStorage.groupomaniaUser).token
             let decodedToken = jwt.verify(token, process.env.VUE_APP_JWT_AUTH_SECRET_TOKEN)
             this.sessionUserId = decodedToken.userId
@@ -60,7 +60,7 @@ export default {
         }
     },
     methods: {
-        connectedUser(){
+        connectedUser(){ // fonction de vérification de la session utilisateur (Item dans le localStorage)
             if(localStorage.groupomaniaUser == undefined){
                 this.approuvedConnexion = false
                 console.log('Utilisateur non connecté !')

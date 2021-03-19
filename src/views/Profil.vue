@@ -78,7 +78,7 @@ export default {
         this.connectedUser()
     },
     mounted() {
-        if(this.approuvedConnexion) {
+        if(this.approuvedConnexion) { //Fonction pour décoder le token dans le localStorage et récupérer le id et access_level
             const token = JSON.parse(localStorage.groupomaniaUser).token
             let decodedToken = jwt.verify(token, process.env.VUE_APP_JWT_AUTH_SECRET_TOKEN);
             this.sessionUserId = decodedToken.userId
@@ -87,7 +87,7 @@ export default {
         }
     },
     methods: {
-        connectedUser(){
+        connectedUser(){ // fonction de vérification de la session utilisateur (Item dans le localStorage)
             if(localStorage.groupomaniaUser === undefined) {
                 this.approuvedConnexion = false
                 console.error("Vous n'êtes pas connecté !")
@@ -97,7 +97,7 @@ export default {
                 console.log('Utilisateur connecté !')
             }
         },
-        getUserProfil(){
+        getUserProfil(){ //Fonction pour lancer une requête vers l'api et remplir le data du composant avec les infos de l'utilisateur
             const userId = this.sessionUserId
             connectedClient.get(`/users/${userId}`)
             .then(res => {
@@ -110,7 +110,7 @@ export default {
                 this.errorMsg = error.response.data.error
             })
         },
-        saveUser(){
+        saveUser(){ //Fonction pour modifier les informations de l'utilisateur, dont le mot de passe
             const prenom = this.$refs.prenom.value
             const nom = this.$refs.nom.value
             const bio = this.$refs.bio.value
@@ -131,11 +131,11 @@ export default {
                     setTimeout(function(){location.reload()}, 500)
                 }
             })
-            .catch((error) => {
+            .catch((error) => { //Cette erreur sert surtout pour le changement de mot de passe
                 this.errorMsg = error.response.data.error
             })
         },
-        deleteUser(){
+        deleteUser(){ //Fonction pour effacer l'utilisateur
             if(window.confirm("ATTENTION : La suppression de votre compte est définitive ! Voulez-vous vraiment supprimer votre compte ?")){
                 const userId = this.sessionUserId;
                 connectedClient.delete(`/users/${userId}`)
@@ -143,6 +143,7 @@ export default {
                     if(res.status === 200) {
                         this.succesMessage = res.data.message;
                         localStorage.removeItem('groupomaniaUser');
+                        //On attends 2 secondes et on renvoie vers la page d'accueil (login dans ce cas précis)
                         setTimeout(function() {location.href = '/';}, 2000)
                     }
                 })

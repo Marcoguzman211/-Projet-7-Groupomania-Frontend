@@ -9,9 +9,7 @@
             <v-card-title class="my-4">{{publication.titre}}</v-card-title>
             <v-card-subtitle class="mx-auto">{{publication.description}}</v-card-subtitle>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
-            <!--<v-btn v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" class="ma-2" color="red" dark>Effacer
-                <v-icon dark right>mdi-cancel</v-icon>
-            </v-btn> -->
+            <!-- v-if pour autoriser le propiétaire du post ou le modérateur pour l'effacer -->
             <button v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" id="effacer" class="mx-5 my-10" type="button">EFFACER </button>
         </v-card>
         <div class="messagestyle">{{message}}</div>
@@ -45,7 +43,7 @@ export default {
         this.connectedUser()
     },
     mounted(){
-        if(this.approuvedConnexion){
+        if(this.approuvedConnexion){ //Fonction pour décoder le token dans le localStorage et récupérer le id et access_level
             const token = JSON.parse(localStorage.groupomaniaUser).token
             let decodedToken = jwt.verify(token, process.env.VUE_APP_JWT_AUTH_SECRET_TOKEN);       
             this.sessionUserId = decodedToken.userId                                               
@@ -54,7 +52,7 @@ export default {
         }
     },
     methods: {
-        connectedUser(){
+        connectedUser(){ // fonction de vérification de la session utilisateur (Item dans le localStorage)
             if(localStorage.groupomaniaUser == undefined){
                 this.approuvedConnexion = false
                 console.log('Utilisateur non connecté !')
@@ -64,20 +62,22 @@ export default {
                 console.log('Utilisateur connecté !')
             }
         },
-        getOnePublication(){
+        getOnePublication(){ //Requête pour récupérer la publication basée sur les paramêtres de l'url
             const publicationId = this.$route.params.id
             connectedClient.get(`/publications/${publicationId}`)
             .then(res => {
                 if(res.data.publication[0] === undefined){
                     this.publication = 0
                 } else {
+                    //On rempli la variable publication avec la réponse
                     this.publication = res.data.publication[0]
                 }
             })
         },
-        deletePublication(id){                            
+        deletePublication(id){ //Fonction pour effacer une publication                  
             const publicationId = id;
             if(window.confirm("ATTENTION : La suppression de la publication est définitive ! Voulez-vous continuer ?")){
+                //Si validé, on passe la requête vers l'API pour effacer la publication
                 connectedClient.delete(`/publications/${publicationId}`)
                 .then((res) => {
                     if(res.status === 200) {
@@ -87,7 +87,7 @@ export default {
                 })
             }
         },
-        formatDate(date){
+        formatDate(date){ //Fonction pour convertir le timestamp de la base de données au format français
             const event = new Date(date);
             const options ={ year: 'numeric', month:'long', day: 'numeric', hour: 'numeric', minute: 'numeric'}
             return event.toLocaleDateString('fr-FR', options)

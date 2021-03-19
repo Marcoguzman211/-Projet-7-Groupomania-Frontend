@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!--Menu dans la version mobile -->
         <v-expansion-panels class="d-sm-none" dark>
             <v-expansion-panel>
                 <v-expansion-panel-header class="groupo-bg texte-blanc">Bienvenue chez Groupomania !</v-expansion-panel-header>
@@ -17,6 +18,7 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
+        <!--Menu principal -->
         <div class="d-none d-sm-flex flex-sm-row justify-sm-space-around groupo-bg texte-blanc">
             <div class="pa-3">
                 <router-link to="/" tag="button">Toutes les publications</router-link>
@@ -37,7 +39,7 @@
 export default {
     name: 'UserNav',
     methods: {
-        deconnexion(){
+        deconnexion(){ //On enlève le item dans le localStorage et on recharge la page pour revenir vers le login
             localStorage.removeItem('groupomaniaUser')
             location.href = '/'
         }

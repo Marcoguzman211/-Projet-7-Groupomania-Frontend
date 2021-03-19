@@ -40,7 +40,7 @@ export default {
         this.connectedUser()
     },
     methods: {
-        connectedUser(){
+        connectedUser(){  // fonction de vérification de la session utilisateur (Item dans le localStorage) et renvoyer vers Home si enregistré
             if(localStorage.groupomaniaUser === undefined) {
                 this.approuvedConnexion = false;
                 console.log('Utilisateur non connecté !')
@@ -50,13 +50,14 @@ export default {
                 location.href = "/"
             }
         },
+        //Fonction pour s'enregistrer
         signup(){
             const nom = this.$refs.nom.value
             const prenom = this.$refs.prenom.value
             const password = this.$refs.password.value
             const email = this.$refs.email.value
             const bio = this.$refs.bio.value
-            
+            //Ne sont nécessaires que le mots de passe et email pour lancer la requête
             if (email && password){
 
                 notConnectedClient.post('/users/signup', {
@@ -67,6 +68,7 @@ export default {
                 bio
             }).then((res) => {
                 if (res.status === 201){
+                    //On récupère un token et on le met dans le localStorage
                     const groupomaniaUser = {
                         token: res.data.token
                     }

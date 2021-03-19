@@ -1,6 +1,8 @@
 <template>
   <div class="home">
+    <!-- Si l'utilisateur n'est pas connecté, le composant Login s'affiche-->
     <Login v-if='!approuvedConnexion'/>
+    <!-- Si connecté, la page principal contient le header, la barre de navigation et toutes les publications-->
     <Header v-if='approuvedConnexion'/> 
     <UserNav v-if='approuvedConnexion' />
     <Publications v-if='approuvedConnexion' />
@@ -23,16 +25,14 @@ export default {
   },
   data() {
     return{
-      approuvedConnexion: false     // on déclare une varibale de type boléen, false par défault (contiendra la validation comme quoi un utilisateur est authentifié)
+      approuvedConnexion: false // on déclare une variable false par défault (contiendra la validation comme quoi l'utilisateur est authentifié)
     };
   },
-
-  created(){                        // hook de cycle de vie qui intervient avant le hook mounted et vérifie la session utilisateur (Item dans le localStorage)
+  created(){ // hook de cycle de vie qui vérifie la session utilisateur (Item dans le localStorage)                  
     this.connectedUser()
   },
-
-  methods: {
-    connectedUser(){                // fonction de vérification de la session utilisateur (Item dans le localStorage)
+  methods: { 
+    connectedUser(){ // fonction de vérification de la session utilisateur (Item dans le localStorage)
       if(localStorage.groupomaniaUser == undefined){
         this.approuvedConnexion = false;
         console.log('Utilisateur non connecté !');

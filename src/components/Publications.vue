@@ -1,11 +1,13 @@
 <template>
     <div class="background d-flex flex-column">
-        <div>
+        <div class="mb-3">
             <h1 class="text-center mt-10 color-principal">Activité récente</h1>
         </div>
+        <!--On crée une boucle avec Vue pour afficher les publications une par une -->
         <v-card class="mx-auto mt-4 mb-4" v-for = "publication in publications" :key="publication.id" width="445">
             <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" max-height="600px"></v-img>
             <v-divider horizontal></v-divider>
+            <!--Router link pour envoyer vers la publication en cliquant sur le titre -->
             <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}" class="text-decoration-none black--text">
                 <v-card-title class="text-h6 font-weight-black">{{publication.titre}}</v-card-title>
             </router-link>
@@ -21,21 +23,21 @@ export default {
     name: 'Publications',
     data() {
         return {
-            publications: [],
+            publications: [], //Variable vide pour recevoir la réponse du backend
         }
     },
-    mounted(){
+    mounted(){ //On appelle les publications quand le composant est affiché avec la authentification de l'utilisateur
         this.getAllPublications()
     },
     methods: {
-        getAllPublications(){
+        getAllPublications(){ //Fonction pour appeler toutes les publications dans la base des données
             connectedClient.get('/publications')
             .then(res => {
-                console.log(res)
+                //On rempli la variable publications avec la réponse
                 this.publications = res.data.publications
             })
         },
-        formatDate(date){
+        formatDate(date){ //Fonction pour convertir le timestamp de la base de données au format français
             const event = new Date(date);
             const options ={ year: 'numeric', month:'long', day: 'numeric', hour: 'numeric', minute: 'numeric'}
             return event.toLocaleDateString('fr-FR', options)
