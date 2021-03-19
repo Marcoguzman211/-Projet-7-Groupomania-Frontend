@@ -3,7 +3,7 @@
         <div>
             <h1 class="text-center mt-10 color-principal">Activité récente</h1>
         </div>
-        <v-card class="mx-auto mt-8" v-for = "publication in publications" :key="publication.id" width="445">
+        <v-card class="mx-auto mt-4 mb-4" v-for = "publication in publications" :key="publication.id" width="445">
             <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" max-height="600px"></v-img>
             <v-divider horizontal></v-divider>
             <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}" class="text-decoration-none black--text">
@@ -56,11 +56,11 @@ export default {
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
-      min-height: 100vh;
+      min-height: 100%;
     }
 
     .nom-date{
-        font-size: .6rem;
+        font-size: 1rem;
         color: rgba(0, 0, 0, 0.781);
     }
 </style>

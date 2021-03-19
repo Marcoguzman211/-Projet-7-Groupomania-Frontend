@@ -7,15 +7,17 @@
         <v-card if='approuvedConnexion' class="mx-auto my-10" elevation="6" max-width="344px" @submit.prevent="newPublication()">
             <form class='mx-auto'>
                 <div class="mb-5 mt-8 mx-auto text-h6">Que voulez-vous dire ?</div>
-                <input class='publinput' ref="titre" type="text" placeholder="Titre">
+                <label for="publinputform" class='text-subtitle-2 mr-auto pl-6'>Titre</label>
+                <input id="publinputform" class='publinput' ref="titre" type="text" placeholder="Ajoutez un titre">
+                <label for="descriptionnew" class='text-subtitle-2 mr-auto pl-6 mt-2'>Contenu</label>
                 <v-container fluid>
                     <v-row>
                         <v-col cols='12' md="12" class="justify-center">
-                            <textarea ref='description' name="description" id="descriptionnew" cols="36" rows="5" class="descriptionnew" placeholder="Ajoutez une description"></textarea>
+                            <textarea ref='description' name="description" id="descriptionnew" cols="36" rows="5" class="descriptionnew" placeholder="Que voulez-vous dire ? ..."></textarea>
                         </v-col>
                     </v-row>
                 </v-container>
-                <div class="mb-1 mt-2 mx-auto text-h6">Ajoutez une image :</div>
+                <label for='uploadImage' class="mb-1 mt-2 mx-auto text-h6">Ajoutez une image :</label>
                 <input ref="uploadImage" type="file" class="mt-2 mb-6 publinput" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
                 <div class="message-erreur">{{message}}</div>
                 <button id="publier" class="mx-5 mt-0 mb-10" type="submit">Publier </button>
@@ -118,8 +120,8 @@ export default {
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
-        min-height: 100vh;
-        }
+        min-height: 100%;
+        } 
     .message-erreur{
         text-align: center;
         margin: auto;
@@ -130,6 +132,7 @@ export default {
     .descriptionnew{
         margin: 0 .6em;
         border: 2px solid grey;
+        width: 96%;
     }
 
     .publier-btn{

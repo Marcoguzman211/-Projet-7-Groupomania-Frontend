@@ -1,17 +1,18 @@
 <template>
-    <div class='OnePublication'>
+    <div class='OnePublication background'>
         <Header v-if='approuvedConnexion' />
         <UserNav v-if='approuvedConnexion' />
 
         <v-card class="mx-auto mt-8" :key="publication.id" max-width="445">
-            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" height="600px"></v-img>
+            <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" max-height="600px"></v-img>
             <v-divider horizontal></v-divider>
-            <v-card-title>{{publication.titre}}</v-card-title>
-            <v-card-subtitle>{{publication.description}}</v-card-subtitle>
-            <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{formatDate(publication.creation_date)}}</div>
-            <v-btn v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" class="ma-2" color="red" dark>Effacer
+            <v-card-title class="my-4">{{publication.titre}}</v-card-title>
+            <v-card-subtitle class="mx-auto">{{publication.description}}</v-card-subtitle>
+            <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
+            <!--<v-btn v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" class="ma-2" color="red" dark>Effacer
                 <v-icon dark right>mdi-cancel</v-icon>
-            </v-btn>
+            </v-btn> -->
+            <button v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" id="effacer" class="mx-5 my-10" type="button">EFFACER </button>
         </v-card>
         <div class="messagestyle">{{message}}</div>
     </div>
@@ -100,11 +101,11 @@ export default {
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
-      min-height: 100vh;
+      min-height: 100%;
     }
 
     .nom-date{
-        font-size: .6rem;
+        font-size: .8rem;
         color: rgba(0, 0, 0, 0.781);
     }
 
@@ -114,5 +115,19 @@ export default {
       color: rgb(3, 102, 0);
       font-size: 1.2rem;
       font-weight: bold;
+    }
+
+    #effacer {
+        padding: 6px 12px;
+        font-size: 1rem;
+        color: white;
+        background-color: #d1515a;
+        border: none;
+        border-radius: 10px;
+        transition-duration: 0.2s;
+    }
+
+    #effacer:hover{
+        transform: scale(1.1);
     }
 </style>

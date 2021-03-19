@@ -2,7 +2,6 @@
 <div class='profil background'>
     <Header if='approuvedConnexion'/>
     <UserNav if='approuvedConnexion'/>
-
     <v-card class="mx-auto mt-10" max-width="344">
         <v-list-item>
             <v-list-item-avatar size="70">
@@ -16,44 +15,26 @@
         </v-list-item>
         <v-card-subtitle>{{userProfil.bio}}</v-card-subtitle>
     </v-card>
-
-    <!--
-    <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px">
-        <v-form @submit.prevent=saveUser() class='mx-auto'>
-            <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre profil</div>
-            <input ref="prenom" type="text" placeholder="Prénom" :value="userProfil.prenom">
-            <input ref="nom" type="text" placeholder="Nom" :value="userProfil.nom">
-            <input ref="bio" type='text' placeholder="Bio" :value="userProfil.bio">
-            <div class="mb-5 mt-8 mx-auto text-h6">Modifier votre mot de passe :</div>
-            <input ref="password" type="password" placeholder="Mot de passe actuel">
-            <input ref="newpassword" type="password" placeholder="Nouveau mot de passe">
-            <div class="message-success">{{successMsg}}</div>
-            <div class="message-erreur mt-10">{{errorMsg}}</div>
-            <div class="mx-auto mb-15 container-button-profil">
-                <button id="sauvegarder" class="mx-5 my-10" type="submit">Sauvegarder mon profil </button>
-                <button id="supprimer" class="mx-5" type="button" @click="deleteUser()">Effacer mon profil </button>
-            </div>
-        </v-form> -->
     <v-card if='approuvedConnexion' class="mx-auto my-10" max-width="344px">    
         <form class='mx-auto' @submit.prevent="saveUser()">
                 <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre profil</div>
-                <span class='text-subtitle-2 mr-auto pl-6'>Prénom</span>
-                <input class='profilinput' ref="prenom" type="text" placeholder="Insérez votre prénom" :value="userProfil.prenom">
-                <span class='text-subtitle-2 mr-auto pl-6'>Nom</span>
-                <input class='profilinput' ref="nom" type="text" placeholder="Insérez votre nom" :value="userProfil.nom">
-                <span class='text-subtitle-2 mr-auto pl-6'>Bio</span>
+                <label for="prenomform" class='text-subtitle-2 mr-auto pl-6'>Prénom</label>
+                <input name="prenom" id="prenomform" class='profilinput' ref="prenom" type="text" placeholder="Insérez votre prénom" :value="userProfil.prenom">
+                <label for='nomform' class='text-subtitle-2 mr-auto pl-6'>Nom</label>
+                <input name="nomform" id="nomform" class='profilinput' ref="nom" type="text" placeholder="Insérez votre nom" :value="userProfil.nom">
+                <label for='profilbio' class='text-subtitle-2 mr-auto pl-6'>Bio</label>
                 <v-container fluid>
                     <v-row>
                         <v-col cols='12' md="12" class="justify-center">
-                            <textarea ref='bio' name="description" id="profilbio" cols="36" rows="5" class="profilbio" placeholder="Décrivez-vous..." :value="userProfil.bio"></textarea>
+                            <textarea ref='bio' style="width: 97%;" name="description" id="profilbio" cols="36" rows="5" class="profilbio" placeholder="Décrivez-vous..." :value="userProfil.bio"></textarea>
                         </v-col>
                     </v-row>
                 </v-container>
                 <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre mot de passe</div>
-                <span class='text-subtitle-2 mr-auto pl-6'>Mot de passe actuel</span>
-                <input class='profilinput' ref="password" type="password" placeholder="Mot de passe actuel">
-                <span class='text-subtitle-2 mr-auto pl-6'>Nouveau mot de passe</span>
-                <input class='profilinput' ref="newpassword" type="password" placeholder="Nouveau mot de passe">
+                <label for='passwordform' class='text-subtitle-2 mr-auto pl-6'>Mot de passe actuel</label>
+                <input name="passwordform" id="passwordform" class='profilinput' ref="password" type="password" placeholder="Mot de passe actuel">
+                <label for='newpasswordform' class='text-subtitle-2 mr-auto pl-6'>Nouveau mot de passe</label>
+                <input name="newpasswordform" id="newpasswordform" class='profilinput' ref="newpassword" type="password" placeholder="Nouveau mot de passe">
                 <div class="message-success">{{successMsg}}</div>
                 <div class="message-erreur mt-10">{{errorMsg}}</div>
                 <div class="mx-auto mb-15 container-button-profil">
@@ -62,6 +43,9 @@
                 </div>
             </form>
     </v-card>
+    <div>
+
+    </div>
 </div>
     
 </template>
@@ -186,12 +170,13 @@ export default {
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
-        min-height: 100vh;
+        min-height: 100%;
         }
 
     .profilbio{
         margin: 0 .6em;
         border: 2px solid grey;
+        width: 100%;
     }
     .profilbio::placeholder{
         width: fit-content;
@@ -235,7 +220,7 @@ export default {
     #supprimer{
         padding: 6px 18px;
         font-size: 1.2rem;
-        color: grey;
+        color:#122441;
         /*background-color: #ff6c40;*/
         border: none;
         border-radius: 10px;
@@ -248,15 +233,17 @@ export default {
     .message-erreur{
       text-align: center;
       margin: auto;
-      color: red;
+      width: 80%;
+      color: #d1515a;
       font-size: 1rem;
       font-weight: bold;
     }
 
     .message-success{
       text-align: center;
-      margin: auto;
-      color: rgb(3, 102, 0);
+      margin: 15px auto auto auto;
+      color: #122441;
+      width: 80%;
       font-size: 1.2rem;
       font-weight: bold;
     }
