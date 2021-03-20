@@ -6,13 +6,13 @@
         <v-card class="mx-auto mt-8" :key="publication.id" max-width="445">
             <v-img v-if = "publication.image_url !== ''" :src="publication.image_url" alt="Image de la publication" max-height="600px"></v-img>
             <v-divider horizontal></v-divider>
-            <v-card-title class="my-4">{{publication.titre}}</v-card-title>
-            <v-card-subtitle class="mx-auto">{{publication.description}}</v-card-subtitle>
+            <v-card-title class="my-4 text-h5">{{publication.titre}}</v-card-title>
+            <v-card-subtitle class="mx-auto text-body-1">{{publication.description}}</v-card-subtitle>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
             <!-- v-if pour autoriser le propiétaire du post ou le modérateur pour l'effacer -->
             <button v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" id="effacer" class="mx-5 my-10" type="button">EFFACER </button>
+            <div class="messagestyle">{{message}}</div>
         </v-card>
-        <div class="messagestyle">{{message}}</div>
     </div>
 </template>
 <script>
@@ -112,9 +112,10 @@ export default {
     .messagestyle {
       text-align: center;
       margin: auto;
-      color: rgb(3, 102, 0);
+      color: #122441; 
       font-size: 1.2rem;
       font-weight: bold;
+      padding-bottom: 2rem;
     }
 
     #effacer {

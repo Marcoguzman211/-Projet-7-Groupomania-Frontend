@@ -108,6 +108,20 @@ export default {
 }
 </script>
 <style scoped>
+    #uploadImage {
+        position: relative;
+  width: 88%;
+  background: white;
+  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+  color: #122441;
+  padding: .5em;
+  box-shadow: 5px 5px rgba(0,0,0,.15);
+  transition: all .4s ease;
+    }
+    #descriptionnew {
+        padding-left: .3em;
+        padding-top: .3em;
+    }
     .publinput {
         margin: 0 1.3em;
         border-radius: 0;

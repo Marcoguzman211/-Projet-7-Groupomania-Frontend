@@ -11,7 +11,7 @@
             <router-link :to="{ name: 'OnePublication', params: { id: publication.id}}" class="text-decoration-none black--text">
                 <v-card-title class="text-h6 font-weight-black">{{publication.titre}}</v-card-title>
             </router-link>
-            <v-card-subtitle class='body-1'>{{publication.description}}</v-card-subtitle>
+            <v-card-subtitle class='text-body-1'>{{publication.description}}</v-card-subtitle>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
         </v-card>
     </div>

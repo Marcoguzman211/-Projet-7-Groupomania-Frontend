@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" style="min-height: 100vh;">
     <!-- Si l'utilisateur n'est pas connecté, le composant Login s'affiche-->
     <Login v-if='!approuvedConnexion'/>
     <!-- Si connecté, la page principal contient le header, la barre de navigation et toutes les publications-->
@@ -44,4 +44,8 @@ export default {
   }
 }
 </script>
-
+<style>
+.home {
+  background-color: #f0f0f0;
+}
+</style>

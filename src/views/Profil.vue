@@ -157,6 +157,10 @@ export default {
 }
 </script>
 <style>
+    #profilbio {
+        padding-left: .3em;
+        padding-top: .3em;
+    }
     .profilinput {
         margin: .5em 1.3em;
         border-radius: 0;
