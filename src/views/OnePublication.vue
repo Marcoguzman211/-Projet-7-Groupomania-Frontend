@@ -13,6 +13,30 @@
             <button v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" id="effacer" class="mx-5 my-10" type="button">EFFACER </button>
             <div class="messagestyle">{{message}}</div>
         </v-card>
+        <v-card class="mx-auto mt-3 comment" v-for = "commentaire in commentaires" :key="commentaire.id" width="445">
+          <v-list-item five-line class="px-0 py-0">
+              <v-list-item-content class="px-0 py-0">
+                  <button v-if="sessionUserId === commentaire.user_id || sessionUserLevel === 1" @click="deleteComment(commentaire.id)" class="supprimer">Supprimer le commentaire</button>
+                  <v-divider v-if="sessionUserId === commentaire.user_id || sessionUserLevel === 1" horizontal></v-divider>
+                  <div class="nom-date px-5 py-1">Commenté par {{commentaire.prenom}} {{commentaire.nom}} | Le {{formatDate(commentaire.creation_date)}}</div>
+                  <v-divider horizontal></v-divider>
+                      <div class="description px-5 py-3">{{commentaire.message}}</div>
+                </v-list-item-content>
+            </v-list-item>
+        </v-card>
+        <v-card v-if="publication !== 0" class="mx-auto mt-8 mb-10" max-width="445">
+          <v-list-item five-line class="px-0 py-0">
+              <v-list-item-content class="px-0 py-0">
+                  <div class="nom-date px-3 py-1">Nouveau commentaire :</div>
+                  <v-divider horizontal></v-divider>
+                  <form class="poster" @submit.prevent = createComment()>
+                      <textarea id="commentaire" ref="commentaire" name="commentaire" placeholder="Ecrivez votre commentaire..." required></textarea>
+                      <button id="poster" type="submit" class="mx-5">Poster</button>
+                  </form>
+                  <div class="message-erreur">{{ message }}</div>
+              </v-list-item-content>
+          </v-list-item>
+      </v-card>
     </div>
 </template>
 <script>
@@ -36,6 +60,7 @@ export default {
             sessionUserId: 0,
             sessionUserLevel: 0,
             publication: [],
+            commentaires: [],
             message: ""
         }
     },
@@ -71,6 +96,36 @@ export default {
                 } else {
                     //On rempli la variable publication avec la réponse
                     this.publication = res.data.publication[0]
+                    this.commentaires = res.data.commentaires
+                    console.log(this.commentaires)
+                }
+            })
+        },
+        createComment(){
+            const userId = this.sessionUserId
+            const publicationId = this.publication.id
+            const message = this.$refs.commentaire.value
+
+            connectedClient.post('/publications/commentaire', {
+                userId,
+                publicationId,
+                message
+            })
+            .then((res) => {
+                if(res.status === 201) {
+                    location.reload()
+                }
+            })
+            .catch((error) => {
+                this.message = error.response.data.error
+            })
+        },
+        deleteComment(id){
+            const commentaireId = id
+            connectedClient.delete(`/publications/commentaire/${commentaireId}`)
+            .then((res) => {
+                if(res.status === 200) {
+                    location.reload()
                 }
             })
         },
@@ -131,4 +186,55 @@ export default {
     #effacer:hover{
         transform: scale(1.1);
     }
-</style>
+
+    form.poster{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+    }
+
+     form textarea{
+        margin: auto;
+        width: 80%;
+        height: 100px;
+        font-size: 1.05rem;
+        padding: 10px;
+        background-color: white;
+        border: 1px rgba(0, 0, 0, 0.548) solid;
+        border-radius: 5px;
+    }
+
+    #poster{
+        padding: 6px 12px;
+        font-size: 1.5rem;
+        color: white;
+        background-color: #122441;
+        border: none;
+        border-radius: 10px;
+        transition-duration: 0.2s;
+    }
+
+    #poster:hover{
+        transform: scale(1.1);
+    }
+
+    .newcomment{
+        background-color: rgb(255, 255, 255);
+    }
+
+    .supprimer{
+        padding: 6px 12px;
+        margin-left: auto;
+        font-size: 1rem;
+        color:#d1515a;
+        border: none;
+        border-radius: 10px;
+        transition-duration: 0.2s;
+        font-weight: bold;
+    }
+
+    .supprimer:hover{
+        transform: scale(1.1);
+    }
+ </style>
