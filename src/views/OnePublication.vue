@@ -8,6 +8,22 @@
             <v-divider horizontal></v-divider>
             <v-card-title class="my-4 text-h5">{{publication.titre}}</v-card-title>
             <v-card-subtitle class="mx-auto text-body-1">{{publication.description}}</v-card-subtitle>
+            <form v-if="sessionUserId === publication.user_id" class="modifpublication" @submit.prevent="updatePublication(publication.id)">
+                <div class="mb-5 mt-8 mx-auto text-h6">Modifiez votre publication</div>
+                <label for='uploadImage' class="text-subtitle-2 mr-auto pl-6 mt-2">Modifiez l'image</label>
+                <input ref="uploadImage" type="file" class="mt-2 mb-6 publinput" accept="image/jpg,image/jpeg,image/png" id="uploadImage" title="Renseignez une image pour votre publication"/>
+                <label for="publinputform" class="text-subtitle-2 mr-auto pl-6 mt-2">Modifiez le titre de la publication</label>
+                <input id="publinputform" class="publinput" ref="titre" type="text" placeholder="Nouveau Titre" :value="publication.titre">
+                <label for="descriptionnew" class="text-subtitle-2 mr-auto pl-6 mt-4">Modifiez le contenu</label>
+                <v-container fluid class="pl-6">
+                    <v-row>
+                        <v-col cols='12' md="12" class="justify-center">
+                            <textarea ref='description' name="description" id="descriptionnew" cols="36" rows="5" placeholder="Changez le contenu de la publication..." :value="publication.description"></textarea>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <button v-if="sessionUserId === publication.user_id" type="submit" id="mettreajour" class="mx-5 my-10">METTRE À JOUR</button>
+            </form>
             <div class="nom-date px-5 py-3">Publié par {{ publication.prenom }} {{ publication.nom }} | Le {{ formatDate(publication.creation_date) }}</div>
             <!-- v-if pour autoriser le propiétaire du post ou le modérateur pour l'effacer -->
             <button v-if="sessionUserId === publication.user_id || sessionUserLevel === 1" @click="deletePublication(publication.id)" id="effacer" class="mx-5 my-10" type="button">EFFACER </button>
@@ -33,7 +49,6 @@
                       <textarea id="commentaire" ref="commentaire" name="commentaire" placeholder="Ecrivez votre commentaire..." required></textarea>
                       <button id="poster" type="submit" class="mx-5">Poster</button>
                   </form>
-                  <div class="message-erreur">{{ message }}</div>
               </v-list-item-content>
           </v-list-item>
       </v-card>
@@ -101,6 +116,36 @@ export default {
                 }
             })
         },
+        updatePublication(id){
+            const publicationId = id
+            const titre = this.$refs.titre.value
+            const description = this.$refs.description.value
+            const uploadImage = this.$refs.uploadImage.files[0]
+
+            const fileName = this.$refs.uploadImage.value;
+            const lastDot = fileName.lastIndexOf(".") + 1;
+            const extensionFile = fileName.substring(lastDot, fileName.length).toLowerCase();
+
+            if(extensionFile =='jpg' || extensionFile == 'jpeg' || extensionFile=='png' || uploadImage==undefined){
+                let formData = new FormData()
+                    formData.append('publicationId', publicationId)
+                    formData.append('titre', titre)
+                    formData.append('description', description),
+                    formData.append('image', uploadImage)
+
+                connectedClient.put('/publications/update', formData)
+                .then((res) => {
+                    if(res.status === 201){
+                        location.reload()
+                    }
+                })
+                .catch(error => {
+                    this.message = error.response.data.error
+                })
+            } else {
+                this.message = "Seules les images de type JPG/JPEG/PNG sont autorisées !"
+            }
+        },
         createComment(){
             const userId = this.sessionUserId
             const publicationId = this.publication.id
@@ -152,6 +197,24 @@ export default {
 
 </script>
 <style scoped>
+    .modifpublication {
+        display: grid;
+        border: 2px solid black;
+        margin: auto auto;
+        width: 445px;
+    }
+
+    .publinput {
+        margin: 0 1.3em;
+        border-radius: 0;
+        width: 89.5%;
+    }
+
+     #descriptionnew {
+        padding-left: .3em;
+        padding-top: .3em;
+        width: 99%;
+    }
      .background{
       background-size: cover;
       background-attachment: fixed;
